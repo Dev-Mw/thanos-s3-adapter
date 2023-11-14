@@ -1,0 +1,86 @@
+{
+    "schemes": [
+        "http"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "Extracts metrics collected by Thanos and stores them in an S3 Bucket in JSON GZ format.",
+        "title": "Thanos to S3 Adapter APIs",
+        "contact": {
+            "name": "Cloud Data",
+            "email": "mld-governance-cloud-economics-cloud-data@dars.dev"
+        },
+        "version": "2.0"
+    },
+    "host": "localhost:9001",
+    "basePath": "/api/v1",
+    "paths": {
+        "/on_demand": {
+            "post": {
+                "description": "Bind the received JSON to the Config struct",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Config"
+                ],
+                "summary": "Bind Config",
+                "parameters": [
+                    {
+                        "description": "QueryConfig",
+                        "name": "config",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.QueryConfig"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/models.QueryConfig"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.QueryConfig": {
+            "type": "object",
+            "properties": {
+                "EndDate": {
+                    "type": "string",
+                    "format": "2023-01-01T00:00:00Z",
+                    "example": "2023-01-01T06:00:00Z"
+                },
+                "Interval": {
+                    "type": "integer",
+                    "minimum": 3600,
+                    "example": 3600
+                },
+                "QueryStep": {
+                    "type": "string",
+                    "example": "60s"
+                },
+                "StartDate": {
+                    "type": "string",
+                    "format": "2023-01-01T00:00:00Z",
+                    "example": "2023-01-01T00:00:00Z"
+                }
+            }
+        }
+    }
+}

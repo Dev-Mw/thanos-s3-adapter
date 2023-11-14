@@ -1,0 +1,60 @@
+basePath: /api/v1
+definitions:
+  models.QueryConfig:
+    properties:
+      EndDate:
+        example: "2023-01-01T06:00:00Z"
+        format: "2023-01-01T00:00:00Z"
+        type: string
+      Interval:
+        example: 3600
+        minimum: 3600
+        type: integer
+      QueryStep:
+        example: 60s
+        type: string
+      StartDate:
+        example: "2023-01-01T00:00:00Z"
+        format: "2023-01-01T00:00:00Z"
+        type: string
+    type: object
+host: localhost:9001
+info:
+  contact:
+    email: mld-governance-cloud-economics-cloud-data@dars.dev
+    name: Cloud Data
+  description: Extracts metrics collected by Thanos and stores them in an S3 Bucket
+    in JSON GZ format.
+  title: Thanos to S3 Adapter APIs
+  version: "2.0"
+paths:
+  /on_demand:
+    post:
+      consumes:
+      - application/json
+      description: Bind the received JSON to the Config struct
+      parameters:
+      - description: QueryConfig
+        in: body
+        name: config
+        required: true
+        schema:
+          $ref: '#/definitions/models.QueryConfig'
+      produces:
+      - application/json
+      responses:
+        "202":
+          description: Accepted
+          schema:
+            $ref: '#/definitions/models.QueryConfig'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Bind Config
+      tags:
+      - Config
+schemes:
+- http
+swagger: "2.0"
