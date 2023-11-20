@@ -1,0 +1,7 @@
+kubecostProductConfigs:
+  clusterName: kubecostProductConfigs_clusterName
+prometheus:
+  server:
+    global:
+      external_labels:
+        cluster_id: kubecostProductConfigs_clusterName

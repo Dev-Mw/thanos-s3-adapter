@@ -44,6 +44,7 @@ func getThanosStores(config models.QueryConfig) ([]interface{}, error) {
 	var jsonResponse models.ThanosStoreResponse
 
 	endPoint := config.EndpointAddress + "/api/v1/stores"
+	log.Infof("END; %v", endPoint)
 	response, err := http.Get(endPoint)
 	if err != nil {
 		msg := "Host error: " + err.Error()
@@ -68,7 +69,9 @@ func getThanosStores(config models.QueryConfig) ([]interface{}, error) {
 		log.Error(msg)
 		return nil, errors.New(msg)
 	}
+	log.Info("TOLOOO")
 	for _, store := range jsonResponse.Data.Store {
+		log.Info("HJJJOLOOO")
 		for i, cluster := range store.LabelSets {
 			minTime := time.Unix(store.MinTime/1000, 0).UTC().Format(time.RFC3339)
 			maxTime := time.Unix(store.MaxTime/1000, 0).UTC().Format(time.RFC3339)

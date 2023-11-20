@@ -11,9 +11,10 @@ FROM alpine
 
 COPY --from=build /go/bin/adapter /go/bin/adapter
 
-RUN mkdir /root/.aws
+#RUN mkdir /root/.aws
 
-COPY ~/.aws/credentials /root/.aws/credentials
-COPY ~/.aws/config /root/.aws/config
+#COPY ~/.aws/credentials /root/.aws/credentials
+#COPY ~/.aws/config /root/.aws/config
 
 ENTRYPOINT [ "/go/bin/adapter" ]
+
