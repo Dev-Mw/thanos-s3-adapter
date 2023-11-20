@@ -34,6 +34,9 @@
 ### Editar config del pod
 ´´´kubectl edit pod [POD] --namespace kubecost´´´
 
+### Eliminar todos los recursos
+´´´kubectl delete all --all --namespace kubecost´´´
+
 ### Puertos
 ´´´9090 kubecost´´´
 ´´´3000 grafana´´´
